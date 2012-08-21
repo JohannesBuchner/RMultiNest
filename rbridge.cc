@@ -32,8 +32,7 @@ void LogLike(double *Cube, int &ndim, int &npars, double &lnew, void *context)
 	Rdouble rd_cube(Cube, npars);
 	rc->assign("cube", &rd_cube);
 	
-	/*rd_ret = Reval("cube <- prior(cube); cube");*/
-	rd_ret = Reval("cube <- cube * 3 - 1");
+	rd_ret = Reval("cube <- prior(cube); cube");
 	for (i = 0; i < npars; i++) {
 		/* copy over so MultiNest knows transformed param */
 		Cube[i] = rd_ret->doubleAt(i);
@@ -43,7 +42,7 @@ void LogLike(double *Cube, int &ndim, int &npars, double &lnew, void *context)
 	
 	lnew = rd_ret->doubleAt(0);
 	/* there might be a memory leak here, if we don't free the result */
-	std::cout << "lnew:" << lnew << std::endl;
+	/*std::cout << "lnew:" << lnew << std::endl;*/
 	delete rd_ret;
 }
 

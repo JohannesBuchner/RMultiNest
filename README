@@ -61,7 +61,7 @@ Running
     
     $ R
     > library(Rserve)
-    > Rserve(args=c("--RS-conf", "conf.rs"))
+    > Rserve(args=c("--RS-conf", "conf.rs", "--no-save"))
 
  4. run ./rbridge in shell
 
@@ -69,7 +69,9 @@ Running
 
    This will connect to R using Rserve, and call R through that for each point evaluation.
 
-
+ 5. Finally, terminate Rserve
+ 
+   $ killall Rserve-bin.so
 
 
 
