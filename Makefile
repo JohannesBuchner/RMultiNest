@@ -2,7 +2,7 @@
 FC = gfortran
 NESTLIBDIR = ..
 
-LIBS := -L$(NESTLIBDIR) -lnest3 $(LAPACKLIB) -lstdc++ Rserve/clients/Rconnection.o -ldl -lcrypt -llapack
+LIBS := -L$(NESTLIBDIR) -lnest3 $(LAPACKLIB) -lstdc++ Rserve/clients/cxx/Rconnection.o -ldl -lcrypt -llapack
 
 OBJFILES = rbridge.o
 
@@ -12,9 +12,9 @@ all: rbridge
 	$(CXX) $(CFLAGS) -c $*.cc -I Rserve/clients/cxx/ -Wall -Wextra -pedantic
 
 rbridge: $(OBJFILES)
-	$(FC) $(FFLAGS) -o ../rbridge $(OBJFILES) $(LIBS)
+	$(FC) $(FFLAGS) -o rbridge $(OBJFILES) $(LIBS)
 
 clean:
-	rm -f *.o *.mod ../rbridge
+	rm -f *.o *.mod rbridge
 
 

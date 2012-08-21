@@ -37,21 +37,33 @@ Installation
 Running
 ---------------------
 
- 1. Write log likelihood function in R (has to be called "log_likelihood")
+ 1. Write log likelihood function in a R file (has to be called "log_likelihood"),
+    and a prior transformation (has to be called "prior")
+    
+  test.r:
    
-   $ R
+    prior <- function(cube) cube
+    
+    log_likelihood <- function(params) { 
+    print (params);
+    0
+    }
    
-    > log_likelihood <- function(params) { 
-    + print (params);
-    + 0
-    + }
+   This is an example flat log_likelihood, and a flat prior.
+
+ 2. Write a config file that tells which file to load
+
+   conf.rs:
+   
+     source test.r
   
- 2. Run Rserve
- 
+ 3. Run Rserve
+    
+    $ R
     > library(Rserve)
-    > Rserve()
- 
- 3. run ./rbridge in Shell
+    > Rserve(args=c("--RS-conf", "conf.rs"))
+
+ 4. run ./rbridge in shell
 
    $ ./rbridge
 

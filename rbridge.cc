@@ -14,19 +14,36 @@
 
 Rconnection * rc;
 
-void LogLike(double *Cube, int &ndim, int &npars, double &lnew, void *context)
-{
-	Rdouble * rd_ret;
-	Rdouble rd_cube(Cube, npars);
-	rc->assign("cube", &rd_cube);
-	rd_ret = (Rdouble*)rc->eval("log_likelihood(cube)");
-	/* there might be a memory leak here, if we don't free d */
-	if (!(rd_ret)) {
-		fprintf(stderr, "return: %p\n", rd_ret); 
+Rdouble * Reval(const char * str) {
+	Rdouble * v = (Rdouble*)rc->eval(str);
+	if (!v) {
+		fprintf(stderr, "return: %p\n", v); 
 		std::cerr << "ERROR: R call (eval) failed!" << std::endl;
 		exit(1);
 	}
-	lnew = rd_ret->doubleArray()[0];
+	return v;
+}
+
+void LogLike(double *Cube, int &ndim, int &npars, double &lnew, void *context)
+{
+	int i;
+	Rdouble * rd_ret;
+	/* hand over point to R */
+	Rdouble rd_cube(Cube, npars);
+	rc->assign("cube", &rd_cube);
+	
+	/*rd_ret = Reval("cube <- prior(cube); cube");*/
+	rd_ret = Reval("cube <- cube * 3 - 1");
+	for (i = 0; i < npars; i++) {
+		/* copy over so MultiNest knows transformed param */
+		Cube[i] = rd_ret->doubleAt(i);
+	}
+	
+	rd_ret = Reval("log_likelihood(cube)");
+	
+	lnew = rd_ret->doubleAt(0);
+	/* there might be a memory leak here, if we don't free the result */
+	std::cout << "lnew:" << lnew << std::endl;
 	delete rd_ret;
 }
 
@@ -66,7 +83,7 @@ int main(int argc, char *argv[])
 	int pWrap[ndims];				// which parameters to have periodic boundary conditions?
 	for(int i = 0; i < ndims; i++) pWrap[i] = 0;
 	
-	char root[100] = "chains/eggboxCC-";			// root for output files
+	char root[100] = "chains/rbridge-";			// root for output files
 	
 	int seed = -1;					// random no. generator seed, if < 0 then take the seed from system clock
 	
@@ -74,7 +91,7 @@ int main(int argc, char *argv[])
 	
 	int resume = 1;					// resume from a previous job?
 	
-	int outfile = 0;				// write output files?
+	int outfile = 1;				// write output files?
 	
 	int initMPI = 1;				// initialize MPI routines?, relevant only if compiling with MPI
 							// set it to F if you want your main program to handle MPI initialization
