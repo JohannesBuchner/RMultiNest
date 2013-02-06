@@ -20,7 +20,14 @@ Installation
 
 0. Download this package (latest at https://github.com/JohannesBuchner/RMultiNest).
 
-1. Download Rserve from http://www.rforge.net/Rserve/ and put into this directory.
+1. Download Rserve (the tar file, Rserve_xxxx.tar.gz) from http://www.rforge.net/Rserve/ and extract it into this directory. You should now have::
+
+     $ ls
+     Makefile
+     README.rst
+     multinest.h
+     rbridge.cc
+     Rserve/
 
 2. Configure the Rserve client::
 
