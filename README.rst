@@ -18,13 +18,29 @@ each point evaluation.
 Installation
 ---------------------
 
-0. Download this package (latest at https://github.com/JohannesBuchner/RMultiNest)
+0. Download this package (latest at https://github.com/JohannesBuchner/RMultiNest).
 
 1. Download Rserve from http://www.rforge.net/Rserve/ and put into this directory.
 
-2. go to Rserve/clients/ and compile the Rserve client::
+2. Configure the Rserve client::
 
-     $ ./configure && make 
+     $ ./Rserve/configure 
+   
+   or in long form::
+   
+     $ cd Rserve
+     $ ./configure
+     $ cd ..
+ 
+2. go to the Rserve/clients/cxx/ folder and build the Rserve client::
+
+     $ make -C Rserve/clients/cxx/ 
+   
+   or in long form::
+   
+     $ cd Rserve/clients/cxx/
+     $ make
+     $ cd ../../../
  
 3. run make to compile Rbridge::
   
