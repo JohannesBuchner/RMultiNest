@@ -29,24 +29,14 @@ Installation
      rbridge.cc
      Rserve/
 
-2. Configure the Rserve client::
+2. Configure Rserve::
 
      $ ./Rserve/configure 
    
-   or in long form::
-   
-     $ cd Rserve
-     $ ./configure
-     $ cd ..
- 
-2. go to the Rserve/clients/cxx/ folder and build the Rserve client::
+2. Configure and build the Rserve C++ client (in Rserve/clients/cxx/)::
 
-     $ make -C Rserve/clients/cxx/ 
-   
-   or in long form::
-   
      $ cd Rserve/clients/cxx/
-     $ make
+     $ ./configure && make
      $ cd ../../../
  
 3. run make to compile Rbridge::
