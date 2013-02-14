@@ -2,7 +2,7 @@
 R Bridge for MultiNest
 ==========================
 
-Author: Johannes Buchner (C) 2012
+Author: Johannes Buchner (C) 2012-2013
 
 About
 ---------------------
@@ -18,11 +18,21 @@ each point evaluation.
 Installation
 ---------------------------
 
-If you haven't already, download and build MultiNest (e.g. from https://github.com/JohannesBuchner/MultiNest)
-Make sure libnest3.so is in your library path if it is not already::
+0. You need MultiNest. 
 
-	$ export LD_LIBRARY_PATH=/mnt/data/daten/PhD/programming/large/MultiNest/
+  * Download it (e.g. from https://github.com/JohannesBuchner/MultiNest)
+  * Build it without MPI (e.g. using $ `make libnest3.so WITHOUT_MPI=1`)
+  * Make sure libnest3.so is in your library path if it is not already::
 
+	$ export LD_LIBRARY_PATH=/my/path/to/MultiNest/
+	
+    .. warning:: 
+	
+	If you do not do this, you will see this error::
+	
+		./rbridge: error while loading shared libraries: libnest3.so: cannot open shared object file: No such file or directory
+
+1. Download this package (latest at https://github.com/JohannesBuchner/RMultiNest), and extract it into the MultiNest directory.
 
 .. hint:: Quick installation::
 	
@@ -31,18 +41,17 @@ Make sure libnest3.so is in your library path if it is not already::
 	   > quit()
 	   $ make rbridge test
 	
-	If that doesn't go through smoothly, follow the manual steps 0-4. 
+	If that doesn't go through smoothly, follow the manual steps 2-6. 
 
 Please report issues at https://github.com/JohannesBuchner/RMultiNest/issues
 
-0. Download this package (latest at https://github.com/JohannesBuchner/RMultiNest).
 
 Building Rserve C++ client
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Otherwise, follow these manual steps.
 
-1. Download Rserve (the tar file, Rserve_xxxx.tar.gz) from http://www.rforge.net/Rserve/ and extract it into this directory. You should now have::
+2. Download Rserve (the tar file, Rserve_xxxx.tar.gz) from http://www.rforge.net/Rserve/ and extract it into this directory. You should now have::
 
      $ ls
      Makefile
@@ -51,11 +60,11 @@ Otherwise, follow these manual steps.
      rbridge.cc
      Rserve/
 
-2. Configure Rserve::
+3. Configure Rserve::
 
      $ ./Rserve/configure 
    
-2. Configure and build the Rserve C++ client (in Rserve/clients/cxx/)::
+4. Configure and build the Rserve C++ client (in Rserve/clients/cxx/)::
 
      $ cd Rserve/clients/cxx/
      $ ./configure && make
@@ -64,14 +73,14 @@ Otherwise, follow these manual steps.
 Building Rbridge
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-3. Run make to compile Rbridge::
+5. Run make to compile Rbridge::
 
      $ make
 
 Installing Rserve in R
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-4. In R, install RServe using the instructions on the website. In short::
+6. In R, install RServe using the instructions on the website. In short::
 
      $ R
      > install.packages("Rserve")
