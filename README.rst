@@ -130,5 +130,11 @@ But you probably want to understand how to run your own code, so follow these st
  
    $ killall Rserve-bin.so
 
+What now?
+~~~~~~~~~~
+Well, you should now have the MultiNest output files lying there. You can learn to understand
+them by reading the MultiNest README (https://github.com/JohannesBuchner/MultiNest/blob/master/README). 
+
+You can either use pymultinest to plot and analyse them, or write your own routines in R.
 
 
