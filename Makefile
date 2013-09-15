@@ -1,18 +1,18 @@
 
 FC = gfortran
-NESTLIBDIR = ..
+NESTLIBDIR = $(MULTINEST)
 
-LIBS := -L$(NESTLIBDIR) -lnest3 $(LAPACKLIB) -lstdc++ -ldl -lcrypt -llapack
+LIBS := -L$(NESTLIBDIR) -lmultinest $(LAPACKLIB) -lstdc++ -ldl -lcrypt -llapack
 
 OBJFILES = rbridge.o
 
 all: rbridge
 
-$(NESTLIBDIR)/libnest3.so:
+$(NESTLIBDIR)/multinest.so:
 	@echo "WARNING ----"
-	@echo "You should have built libnest3.so in $(NESTLIBDIR)"
+	@echo "You should have built multinest.so in $(NESTLIBDIR)"
 	@echo "Trying to be smart and build it now ..."
-	make -C $(NESTLIBDIR) libnest3.so WITHOUT_MPI=1
+	make -C $(NESTLIBDIR) libmultinest.so WITHOUT_MPI=1
 
 Rserve/configure:
 	wget https://www.rforge.net/Rserve/snapshot/Rserve_1.7-0.tar.gz -O - | tar -xvz
@@ -27,7 +27,7 @@ Rserve/clients/cxx/Rconnection.o: Rserve/clients/cxx/config.h
 %.o: %.cc Rserve/clients/cxx/config.h
 	$(CXX) $(CFLAGS) -c $*.cc -I Rserve/clients/cxx/ -Wall -Wextra -pedantic
 
-rbridge: $(OBJFILES) Rserve/clients/cxx/Rconnection.o $(NESTLIBDIR)/libnest3.so
+rbridge: $(OBJFILES) Rserve/clients/cxx/Rconnection.o $(NESTLIBDIR)/libmultinest.so
 	$(FC) $(FFLAGS) -o rbridge Rserve/clients/cxx/Rconnection.o $(OBJFILES) $(LIBS)
 
 clean:

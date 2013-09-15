@@ -91,7 +91,9 @@ int main(int argc, char *argv[])
 	int resume = 1;					// resume from a previous job?
 	
 	int outfile = 1;				// write output files?
-	
+
+	int IS = 1;
+
 	int initMPI = 1;				// initialize MPI routines?, relevant only if compiling with MPI
 							// set it to F if you want your main program to handle MPI initialization
 	
@@ -115,8 +117,9 @@ int main(int argc, char *argv[])
 	printf("connected to R\n");
 	// calling MultiNest
 
-	nested::run(mmodal, ceff, nlive, tol, efr, ndims, nPar, nClsPar, maxModes, updInt, Ztol, root, seed, pWrap, fb, resume, outfile, initMPI,
+	nested::run(IS, mmodal, ceff, nlive, tol, efr, ndims, nPar, nClsPar, maxModes, updInt, Ztol, root, seed, pWrap, fb, resume, outfile, initMPI,
 	logZero, maxiter, LogLike, dumper, context);
+
 }
 
 /***********************************************************************************************************************/

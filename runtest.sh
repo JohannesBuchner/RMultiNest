@@ -25,7 +25,7 @@ sleep 1
 echo "Starting RMultiNest run"
 ./rbridge || exit 1
 
-killall Rserve-bin.so
+killall Rserve
 
 test -e "chains/rbridge-summary.txt"
 r=$?
