@@ -67,7 +67,7 @@ Otherwise, follow these manual steps.
 4. Configure and build the Rserve C++ client (in Rserve/clients/cxx/)::
 
      $ cd Rserve/clients/cxx/
-     $ ./configure && make
+     $ ./configure && make Rconnection.o
      $ cd ../../../
 
 Building Rbridge

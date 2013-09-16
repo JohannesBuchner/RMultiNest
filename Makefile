@@ -22,7 +22,7 @@ Rserve/clients/cxx/config.h: Rserve/configure
 	cd Rserve/clients/cxx/ && ./configure
 
 Rserve/clients/cxx/Rconnection.o: Rserve/clients/cxx/config.h
-	cd Rserve/clients/cxx/ && make
+	cd Rserve/clients/cxx/ && make Rconnection.o
 
 %.o: %.cc Rserve/clients/cxx/config.h
 	$(CXX) $(CFLAGS) -c $*.cc -I Rserve/clients/cxx/ -Wall -Wextra -pedantic
