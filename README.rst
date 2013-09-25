@@ -11,37 +11,38 @@ This code allows likelihood functions written in R (http://www.r-project.org) to
 
 How does it work
 ---------------------
-The main program will connect to R using Rserve, and call R through that for 
-each point evaluation.
+The main program will connect to R using Rserve. It will run MultiNest, and
+for each point evaluation call the user-defined R callback function.
 
 
 Installation
 ---------------------------
 
-0. You need MultiNest. 
+#. You need MultiNest. 
 
-  * Download it (e.g. from https://github.com/JohannesBuchner/MultiNest)
-  * Build it without MPI (e.g. using $ `make libnest3.so WITHOUT_MPI=1`)
-  * Make sure libnest3.so is in your library path if it is not already::
+	* Download it (e.g. from https://github.com/JohannesBuchner/MultiNest)
+	* Make sure libmultinest.so is in your library path if it is not already::
 
-	$ export LD_LIBRARY_PATH=/my/path/to/MultiNest/
-	
-    .. warning:: 
-	
-	If you do not do this, you will see this error::
-	
-		./rbridge: error while loading shared libraries: libnest3.so: cannot open shared object file: No such file or directory
+		$ export LD_LIBRARY_PATH=/my/path/to/MultiNest/
 
-1. Download this package (latest at https://github.com/JohannesBuchner/RMultiNest), and extract it into the MultiNest directory.
+	.. warning:: 
 
-.. hint:: Quick installation::
+		If you do not do this, you will see this error::
+		
+			./rbridge: error while loading shared libraries: libmultinest.so: cannot open shared object file: No such file or directory
+
+#. Download this package (latest at https://github.com/JohannesBuchner/RMultiNest), and extract it into the MultiNest directory.
+
+	.. hint:: 
 	
-	   $ R --no-save
-	   > install.packages("Rserve")
-	   > quit()
-	   $ make rbridge test
+		Quick installation::
+		
+			$ R --no-save
+			> install.packages("Rserve")
+			> quit()
+			$ make rbridge test
 	
-	If that doesn't go through smoothly, follow the manual steps 2-6. 
+		If that doesn't go through smoothly, follow the manual steps 2-6. 
 
 Please report issues at https://github.com/JohannesBuchner/RMultiNest/issues
 
