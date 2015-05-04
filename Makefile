@@ -3,7 +3,7 @@ FC = gfortran
 NESTLIBDIR = $(MULTINEST)/lib/
 
 LIBS := -L$(NESTLIBDIR) -lmultinest $(LAPACKLIB) -lstdc++ -ldl -lcrypt -llapack
-INCS := -I $(MULTINEST)/includes/ 
+INCS := -I $(MULTINEST)/include/ 
 
 OBJFILES = rbridge.o
 
